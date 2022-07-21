@@ -1,115 +1,73 @@
+#define _CRT_SEOURE_NO_WAFNINGS
 #include <stdio.h>
-#include <time.h>
 #include <stdlib.h>
+#include <conio.h>
+#include <string.h>
 
-//5마리의 고양이가 
-//아무키나 눌러서 랜덤으로 고양이를 뽑음
-//고양이를 잘 수집해서 열심히 키우면 됨
 
-//고양이
-//이름, 나이, 성격, 키우기 난이도(레벨)
+//비밀번호를 입력 받아서
+//맞는경우 비밀일기를 읽어와서 보여주고. 계속작성
+//틀린 경우 경고 메세지를 표시하고 종료
 
-typedef struct {
-    char *name;//이름
-    int age;//나이
-    char *character;//성격
-    int level;//키우기 난이도
-}CAT;
-
-//현재까지 보유한 고양이
-int collection[5] = {0,0,0,0,0};
-//전체 고양이 리스트
-CAT cats[5];
-
-void initCats();//고양이 정보 초기화
-void printCat();//뽑은 고양이의 정보 출력
-
-int checkCollection();//
+#define MAX 10000
 
 int main(){
-    srand(time(NULL));
+    //fgets, fputs 활용
+    char line[MAX];//파일에서 불러온 내용을 저장할 변수
+    char contents[MAX];//일기장에 입력할 내용
+    char password[20];//비밀번호 입력
+    char c;//비밀번호 입력 할 때 키값 확인용
 
-    initCats();
+    printf("비밀일기에 오신것을 환영합니다 \n");
+    printf("비밀번호를 입력하세요 : ");
+    int i=0;
     while(1){
-        printf("두근두근~! 어느 고양이의 집사가 될까요\n아무 키나 눌러서 확인하세요!");
-        getchar();
-        
-        int selected = rand()%5;// 0~4사이의 숫자 반환
-        printCat(selected);//뽑은 고양이 정보 출력
-        collection[selected]=1;//고양이 뽑기 처리
-
-        int collectAll= checkCollection();       
-        if(collectAll==1){
+        c=getch();
+        if(c == 13){
+            password[i]='\0';
             break;
+
         }
+        else{
+            printf("*");
+            password[i] = c;
+        }
+        i++;
+    }
+    printf("\n\n 비밀번호 확인중...\n\n");
+    if(strcmp(password,"rhkrrudgh")==0){
+        printf("비밀번호 확인 완료\n");
+        char *fileName = "./secretdiary.txt";
+        FILE * file = fopen(fileName,"a+b");//'a+b'= 파일이 없으면 생성, 파일이 있으면 이어서 쓰기
+        if(file == NULL){
+            printf("파일 열기 실패");
+            return 1;
+        }
+        //텍스트 파일의 내용 불러오기
+        while(fgets(line,MAX,file)!=NULL){
+            printf("%s",line);
+        }
+
+        printf("\n\n 내용을 계속 작성하세요. 종료하려면 EXIT를 입력하세요\n\n");
+        //새로운 내용 작성
+        while (1)
+        {
+            scanf("%[^\n]",contents);//새줄이 나오기 전까지 읽어들임
+            getchar();
+            //EXIT를 입력하면 종료하기
+            if(strcmp(contents,"EXIT")==0){
+                printf("비밀일기 입력을 종료합니다");
+                break;
+            }
+            fputs(contents,file);
+            fputs("\n",file);//엔터를 위에 getchar를 입력하여서 무시했으므로 줄바꿈 임의로 추가
+        }
+        fclose(file);
+        
+    }//비밀번호 틀린경우
+    else{
+        printf("비밀번호가 틀림");
     }
 
     return 0;
-}
-
-
-
-void initCats(){
-    cats[0].name = "깜냥이";
-    cats[0].age = 5;
-    cats[0].character = "온순";
-    cats[0].level = 1;
-
-    cats[1].name = "귀요미";
-    cats[1].age = 3;
-    cats[1].character = "날카로움";
-    cats[1].level = 2;
-
-    cats[2].name = "수줍이";
-    cats[2].age = 7;
-    cats[2].character = "늘 잠만 잠";
-    cats[2].level = 3;
- 
-    cats[3].name = "까꿍이";
-    cats[3].age = 2;
-    cats[3].character = "시끄러움";
-    cats[3].level = 4;
-
-    cats[4].name = "돼냥이";
-    cats[4].age = 1;
-    cats[4].character = "배고픔";
-    cats[4].level = 5;
-
-}
-
-void printCat(int selected){
-    printf("\n\n=== 당신은 이 고양이의 집사가 되었어요! ===\n\n");
-    printf("이름       : %s\n",cats[selected].name);
-    printf("나이       : %d\n",cats[selected].age);
-    printf("특징(성격) : %s\n",cats[selected].character);
-    printf("레벨       : ");
-    int i;
-    for(i=0; i<cats[selected].level;i++){
-        printf("%s","★");
-    }
-    printf("\n\n");
-}
-
-int checkCollection(){
-    //현재 보유한 고양이 목록 출력
-    //다 모았는지 여부를 반환
-    int collectAll=1;
-    printf("\n\n === 보유한 고양이 목록이에요 === \n\n");
-    int i;
-    for(i=0;i<5;i++){
-        if(collection[i]==0){//고양이 수집x
-            printf("%10s","빈박스");
-            collectAll=0;//다모으지 못한 상태
-        }
-        else{//고양이 수집 o
-            printf("%10s",cats[i].name);
-
-        }
-    }
-    printf("\n===============================");
-    
-    if(collectAll){//고양이를 다 모은 경우
-        printf("\n\n 축하합니다 ! 모든 고양이를 다 모았어요. 열심히 키워주세요");
-    }
-    return collectAll;
 }
