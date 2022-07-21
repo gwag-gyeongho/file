@@ -34,7 +34,7 @@ int main(){
         printf("두근두근~! 어느 고양이의 집사가 될까요\n아무 키나 눌러서 확인하세요!");
         getchar();
         
-        int selected = rand()*5;// 0~4사이의 숫자 반환
+        int selected = rand()%5;// 0~4사이의 숫자 반환
         printCat(selected);//뽑은 고양이 정보 출력
         collection[selected]=1;//고양이 뽑기 처리
 
