@@ -24,7 +24,7 @@ CAT cats[5];
 void initCats();//고양이 정보 초기화
 void printCat();//뽑은 고양이의 정보 출력
 
-int checkCollection();//
+int checkCollection();//모든 고양이를 모았는지 확인
 
 int main(){
     srand(time(NULL));

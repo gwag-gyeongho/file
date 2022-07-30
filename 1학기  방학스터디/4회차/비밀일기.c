@@ -1,4 +1,3 @@
-#define _CRT_SEOURE_NO_WAFNINGS
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
