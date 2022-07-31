@@ -1,5 +1,5 @@
 Toeic 3
-Apple 1
-English 9
-Math 9
-Speak 9
+apple 1
+English 8
+Math 15
+Speak 4
