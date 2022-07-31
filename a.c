@@ -1,9 +1,10 @@
 #include "stdafx.h"
-#define max 1000
+#define MAX 1000
 
 int main(){
     int num=0;
-    login();
+
+    //login();
 
     while(1){
         printDisplay();

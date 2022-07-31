@@ -5,7 +5,7 @@ void printBookList(){
     printf("****책 목록 화면****\n");
     printf("책이름 대출가능권수\n");
     printf("*******************\n");
-    FILE* fp = fopen("booklist.txt", "r");  
+    FILE* fp = fopen("BookList.txt", "r");  
     char buffer[MAX] = { 0, };
 
     fread(buffer, 1, MAX, fp); 
