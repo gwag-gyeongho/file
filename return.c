@@ -24,7 +24,7 @@ void bookReturn(){
             
             
             sprintf(before,"%d",k);
-            sprintf(after,"%d",k+1);
+            sprintf(after,"%d",k-1);
             
             
         }
