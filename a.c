@@ -4,7 +4,7 @@
 int main(){
     int num=0;
 
-    //login();
+    login();
 
     while(1){
         printDisplay();
