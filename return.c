@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "return.h"
+
 
 void bookReturn(){
 
@@ -12,7 +12,7 @@ void bookReturn(){
     printf("**********************\n");
     printf("*****책 반납 화면*****\n");
     printf("**********************\n");
-    fp = fopen("booklist.txt", "r");
+    fp = fopen("BookList.txt", "r");
     printf("반납할 책 이름 :");
     scanf("%s",ans);
 
@@ -20,6 +20,7 @@ void bookReturn(){
         
         fgets(str, 100, fp);
         sscanf(str,"%s %d",book,&k);
+        printf("%s",book);
         if (strcmp(ans,book)==0 ) {
             
             
@@ -31,13 +32,13 @@ void bookReturn(){
     }
     fclose(fp);
 
-    if(0==fopen_s(&p_file,"booklist.txt","r+t")){
+    if(0==fopen_s(&p_file,"BookList.txt","r+t")){
         while(fgets(temp,256,p_file)!=NULL){
             p=strstr(temp,before);
             if(p!=NULL){
                 find_pos=strlen(temp) - (p-temp)+1;
                 fseek(p_file,(-1)*find_pos+1,SEEK_CUR);
-                fwrite(after,1,1,p_file);
+                fwrite(after,2,1,p_file);
                 fseek(p_file,find_pos-4,SEEK_CUR);
             }
         }
