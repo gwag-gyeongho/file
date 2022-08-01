@@ -1,7 +1,6 @@
 #include "stdafx.h"
 
 
-
 void printDisplay(){
     printf("\n**************************\n");
     printf("1.책 목록 보기\n");

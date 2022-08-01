@@ -1,14 +1,12 @@
 #include "stdafx.h"
 
-
 void bookReturn(){
-
-    FILE* fp;
-    FILE *p_file=NULL;
-    char ans[100],str[100],book[25];
-    int k,find_pos;
-    char *p,after[10],before[10],temp[256];
-    char save[30][20];
+  	FILE* fp;
+    char ans[100],book[20][20],str[100],title[10];
+    int k,bookexist,num[20];
+    char after[10],before[10];
+    char *p,c;
+    
     
 
     printf("**********************\n");
@@ -18,57 +16,50 @@ void bookReturn(){
     printf("반납할 책 이름 :\n");
     scanf("%s",ans);
     
+    int i=0,cnt=0;
+     while((c=fgetc(fp))!=EOF){
+        if(c=='\n'){
+            cnt++;
+        }
+    }   
+    fclose(fp);   
     
+    fp = fopen("BookList.txt", "r");
     while (!feof(fp)) {
-        
-        fgets(str, 100, fp);
-        sscanf(str,"%s %d",book,&k);
-        
-        if (strcmp(ans,book)==0 ) {
-            if(k==0){
-                printf("책이 없습니다");
-                break;
+        for (i= 0; i<cnt+1;i++){
+            fscanf(fp, "%s %d\n", title, &k);
+
+            strcpy(book[i],title);            
+            num[i]=k;
+            if (strcmp(ans,book[i])==0 ) {
+                if(num[i]==0){
+                    printf("책이 없습니다");
+                    bookexist=1;
+                    continue;
+                }
+                num[i]+=1;
+            
             }
             
-            sprintf(before,"%d",k);
-            sprintf(after,"%d",k+1);
-            
-            break;
+    
 
-            
         }
     }
     
     fclose(fp);
     
-    if(0==fopen_s(&p_file,"BookList.txt","r+t")){
-        int i=0;
-        int sum=0;
-        while(fgets(temp,256,p_file)!=NULL){
-            p=strstr(temp,book);
-            strcpy(save[i],temp);
-            
-            sum+=strlen(save[i]);
-            if(p!=NULL){
-                
-                if(strlen(after)>=2){
-                    sum--;
-                }
-                if(sum>40){
-                    sum++;
-                }
-                
-                find_pos=strlen(temp) +1;
-                fseek(p_file,sum-2,SEEK_SET);
-                fwrite(after,strlen(after),1,p_file);
-                fseek(p_file,find_pos-4,SEEK_CUR);
-                i++;
-            }
-            
+    fp = fopen("BookList.txt", "w");
+    int j=0;
+    for(j=0;j<cnt+1;j++){
+        if(j==cnt){
+            fprintf(fp,"%s %d",book[j],num[j]);
         }
+        else{
+            fprintf(fp,"%s %d\n",book[j],num[j]);
+        }
+
     }
-    
-    fclose(p_file);
+    fclose(fp);
     printf("\n반납이 완료되었습니다");
     printf("\n아무키나 입력하면 화면 이동");
     getch();
