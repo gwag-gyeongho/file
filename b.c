@@ -4,9 +4,9 @@
 
 int main()
 {   
-	FILE* fp;
+ 	FILE* fp;
     char ans[100],book[20][20],str[100],title[10];
-    int k,bookexist,num[20];
+    int k=0,bookexist=0,num[20];
     char after[10],before[10];
     char *p,c;
     
@@ -36,34 +36,53 @@ int main()
             num[i]=k;
             if (strcmp(ans,book[i])==0 ) {
                 if(num[i]==0){
-                    printf("책이 없습니다");
+                    printf("책이 없습니다\n");
                     bookexist=1;
                     break;
                 }
                 num[i]-=1;
             
             }
+            else{
+                printf("존재하지 않는 책입니다\n");
+                bookexist=1;
+                break;
+            }
             
     
 
         }
+        if(bookexist==1){
+            break;
+        }
+    }
+    if(bookexist!=1){
+        fclose(fp);
+    
+        fp = fopen("BookList.txt", "w");
+        int j=0;
+        for(j=0;j<cnt+1;j++){
+            if(j==cnt){
+                fprintf(fp,"%s %d",book[j],num[j]);
+            }
+            else{
+                fprintf(fp,"%s %d\n",book[j],num[j]);
+            }
+
+        }
+        fclose(fp);
+    }
+    else{
+        printf("");
     }
     
-    fclose(fp);
-    
-    fp = fopen("BookList.txt", "w");
-    int j=0;
-    for(j=0;j<cnt+1;j++){
-        if(j==cnt){
-            fprintf(fp,"%s %d",book[j],num[j]);
-        }
-        else{
-            fprintf(fp,"%s %d\n",book[j],num[j]);
-        }
-
+    if(bookexist==1){
+        printf("\n대출할 수 없습니다.\n");
     }
-    fclose(fp);
-
+    else{
+        printf("\n대출이 완료되었습니다\n");
+        
+    }
 
     return 0;
 
