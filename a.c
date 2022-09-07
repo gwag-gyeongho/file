@@ -1,40 +1,23 @@
-#include "stdafx.h"
-#define MAX 1000
+#include <stdio.h>
 
 int main(){
-    int num=0;
+    int a =0,i=0,j=0;
+    scanf("%d",&a);
 
-    login();
-
-    while(1){
-        printDisplay();
-        printf("원하는 작업 번호 : ");
-        scanf("%d",&num);
-        system("CLS");
-        switch(num){
-            case 1:
-                printBookList();                          
-                break;
-
-            case 2:
-                bookBorrow();              
-                break;
-
-            case 3:
-                bookReturn();            
-                break;
-
-            case 4:
-                printf("프로그램이 종료됩니다\n");
-                exit(0);
-                break;
-            
-            default:
-                printf("\n입력 범위를 벗어났습니다\n");
-                printf("\n아무키나 입력하면 화면 이동\n");
+    for(i=0;i<a;i++){
+        int b=0,c=0,num=1;
+        scanf("%d %d",&b,&c);
+        for(j=0;j<c;j++){
+            num*=b;
+            num%=10;
         }
-        
+        if(num==0){
+            printf("10\n");
+        }
+        else{
+            printf("%d\n",num);
+        }
     }
+
     return 0;
 }
-
