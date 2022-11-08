@@ -1,23 +1,35 @@
 #include <stdio.h>
 
+void comp1(double a,double *v, double *s);
+double vol(double a, double *v);
+double sarea(double a,double *s);
+
 int main(){
-    int a =0,i=0,j=0;
-    scanf("%d",&a);
+	double a;
+	double v,s;
+	scanf("%lf",&a);
 
-    for(i=0;i<a;i++){
-        int b=0,c=0,num=1;
-        scanf("%d %d",&b,&c);
-        for(j=0;j<c;j++){
-            num*=b;
-            num%=10;
-        }
-        if(num==0){
-            printf("10\n");
-        }
-        else{
-            printf("%d\n",num);
-        }
-    }
+	comp1(a,&v,&s);
+	printf("%f ,%f\n",v,s);
+	v=vol(a,&v);
+	printf("%f ,%f\n",v,s);
+	s=sarea(a,&s);
+	printf("%f ,%f\n",v,s);
 
-    return 0;
+	return 0;
+}
+
+void comp1(double a, double *v, double *s){
+	*v=a*a*a;
+	*s=a*a*6;
+}
+
+double vol(double a, double *v){
+	
+	*v = a*a*a;
+	return a*a*a;
+}
+double sarea(double a,double *s){
+	*s=6*a*a;
+	return a*a*6;
 }
