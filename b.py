@@ -1,90 +1,54 @@
-#4
-alpha= [["A","B","C","D","E"],
-        ["F","G","H","I","J"],
-        ["K","L","M","N","O"],
-        ["P","Q","R","S","T"],
-        ["U","V","W","X","Y"]]
+def membership():
+    print("아이디와 비밀번호를 등록하세요.")
+    inid=input("아이디 : ")
+    inpwd=input("비밀번호 : ")
 
-#노란색 버튼=1 빨간색 버튼=0
-num=   [[1,1,0,1,1],
-        [1,0,0,0,0],
-        [0,1,1,1,1],
-        [1,1,0,1,0],
-        [0,1,0,1,1]]
-#누른 버튼에 해당하는 알파벳을 담을 리스트
-alphalist=[]
-while(1):
-    #alpha와 num 리스트 전체 출력
-    for i in range(5):
-        for j in range(5):
-            print(alpha[i][j],end=" ")
-        print()
-    print("==========")
-    for i in range(5):
-        for j in range(5):
-            print(num[i][j],end=" ")
-        print()
-    print()
-    #누를 버튼 입력
-    button=input()
-    # "-1"입력하면 종료
-    if button=="-1":
-        break
-    # 버튼에 해당하는 좌표 값 찾아내기
-    for i in range(5):
-        for j in range(5):
-            if alpha[i][j]==button:
-                m=i
-                n=j
-                break
-    alphalist.append(button)
-    #빨간색 버튼을 누른 경우
-    #상하좌우 바꿔주기
-    if num[m][n]==0:
-        if num[m-1][n]==1:
-            num[m-1][n]=0
-        else:
-            num[m-1][n]=1
+    with open("./login.txt","a") as f:
+        num=0
+        f.writelines(inid+" "+inpwd+"\n")
 
-        if num[m+1][n]==1:
-            num[m+1][n]=0
-        else:
-            num[m+1][n]=1
-
-        if num[m][n+1]==1:
-            num[m][n+1]=0
-        else:
-            num[m][n+1]=1
-
-        if num[m][n-1]==1:
-            num[m][n-1]=0
-        else:
-            num[m][n-1]=1
-    # 노란색 버튼을 누른 경우
-    # 대각선 바꿔주기
-    elif num[m][n]==1:
-
-        if num[m-1][n-1]==1:
-            num[m-1][n-1]=0
-        else:
-            num[m-1][n-1]=1
+def login():
+    inid=input("아이디 입력 : ")
+    inpwd=input("비밀번호 입력 : ")
+    result = 0
+    with open("./login.txt","r") as f:
         
-        if num[m-1][n+1]==1:
-            num[m-1][n+1]=0
-        else:
-            num[m-1][n+1]=1
+        lines=f.readlines()
+        for data in lines:
+            data = data.rstrip("\n")
+            items=data.split()
+            if items[0]==inid and items[1]==inpwd:
+                print("안녕하세요.")
+                result=1
+                break
+    if result==0:
+        print("아이디와 비밀번호를 확인하세요")
 
-        if num[m+1][n-1]==1:
-            num[m+1][n-1]=0
-        else:
-            num[m+1][n-1]=1
+def chpwd():
+    inid=input("아이디 입력 : ")
+    inpwd=input("비밀번호 입력 : ")
+    ppwd=input("변경할 비밀번호 입력 : ")
+    b=inid+" "+inpwd
+    with open("./login.txt","r") as f:
+        lines=f.readlines()
+    with open("./login.txt", "w") as f:
+        for line in lines:
+            if line.strip("\n") != b:  
+                f.write(line)
+    with open("./login.txt","a") as f:
+        f.writelines("\n"+inid+" "+ppwd+"\n")
 
-        if num[m+1][n+1]==1:
-            num[m+1][n+1]=0
-        else:
-            num[m+1][n+1]=1
 
 
-
-print("누른 알파벳 : ", alphalist)
-print("버튼 누른 횟수: ", len(alphalist))
+print("1.회원가입 2.로그인")
+x=int(input("숫자를 입력하세요"))
+if x==1:
+    membership()
+elif x==2:
+    login()
+    print("1.비밀번호 변경 2.종료")
+    k=int(input("숫자를 입력하세요"))
+    if k==1:
+        chpwd()
+    else:
+        exit()

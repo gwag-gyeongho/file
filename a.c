@@ -1,35 +1,27 @@
 #include <stdio.h>
+#include <string.h>
+#define SIZE 100
 
-void comp1(double a,double *v, double *s);
-double vol(double a, double *v);
-double sarea(double a,double *s);
+int str_chr(char *s, int c) {
+	int i;
+	int count=0;
+	for (i=0;i<strlen(s);i++) {
+		if( s[i] == c )
+		count++;
+	}
+	return count;
+}
 
-int main(){
-	double a;
-	double v,s;
-	scanf("%lf",&a);
+int main(void) {
 
-	comp1(a,&v,&s);
-	printf("%f ,%f\n",v,s);
-	v=vol(a,&v);
-	printf("%f ,%f\n",v,s);
-	s=sarea(a,&s);
-	printf("%f ,%f\n",v,s);
+	char str[SIZE];
+	char ch;
+	printf("문자열을 입력하시오: ");
+	gets(str);
+	printf("개수를 셀 문자를 입력하시오: ");
+	ch= getchar();
+	printf("%c의 개수: %d", ch, str_chr(str, ch));
 
 	return 0;
-}
 
-void comp1(double a, double *v, double *s){
-	*v=a*a*a;
-	*s=a*a*6;
-}
-
-double vol(double a, double *v){
-	
-	*v = a*a*a;
-	return a*a*a;
-}
-double sarea(double a,double *s){
-	*s=6*a*a;
-	return a*a*6;
 }

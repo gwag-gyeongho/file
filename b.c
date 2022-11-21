@@ -1,27 +1,31 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <string.h>
 #define SIZE 10
 
+struct point
+{
+	int x;
+	int y;
+};
+
+
 int main(){
-	int list[SIZE]={3,2,9,7,1,4,8,0,6,5};
+	struct point p1,p2;
+	int xdiff,ydiff;
+	double dist;
 
-	int i,j,temp,max;
+	printf("점의 좌표를 입력하세요");
+	scanf("%d %d",&p1.x,&p1.y);
+	printf("점의 좌표를 입력하세요");
+	scanf("%d %d",&p2.x,&p2.y);
 
-	for(i=0;i<SIZE-1;i++){
-		max=i;
-		for(j=i+1;j<SIZE;j++){
-			if(list[j]>list[max]){
-				max=j;
-			}
-		}
-		temp=list[i];
-		list[i]=list[max];
-		list[max]=temp;
+	xdiff=p1.x-p2.x;
+	ydiff=p1.y-p2.y;
 
-	}
-	for(i=0;i<SIZE;i++){
-		printf("%d ",list[i]);
-	}
-	printf("\n");
+	dist = sqrt((double)(xdiff*xdiff+ydiff*ydiff));
+	printf("%f",dist);
 
 	return 0;
 }
