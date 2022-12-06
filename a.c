@@ -1,27 +1,101 @@
 #include <stdio.h>
-#include <string.h>
-#define SIZE 100
 
-int str_chr(char *s, int c) {
-	int i;
-	int count=0;
-	for (i=0;i<strlen(s);i++) {
-		if( s[i] == c )
-		count++;
-	}
-	return count;
-}
+typedef struct complex {
+	double real;
+	double imag;
+}Complex;
+
+Complex add(Complex c1, Complex c2);
+Complex add2(Complex *c1, Complex *c2);
+Complex *add3(Complex *c1, Complex *c2);
+
+Complex sub(Complex c1, Complex c2);
+
+Complex mul(Complex c1, Complex c2);
+
+Complex div(Complex c1, Complex c2);
+
+Complex get_complex(char *s);
+void print_complex(Complex c1);
 
 int main(void) {
+	Complex c1,c2,c3,c4,c5,c6;
+	
+    c1=get_complex("c1");
+	c2=get_complex("c2");
 
-	char str[SIZE];
-	char ch;
-	printf("문자열을 입력하시오: ");
-	gets(str);
-	printf("개수를 셀 문자를 입력하시오: ");
-	ch= getchar();
-	printf("%c의 개수: %d", ch, str_chr(str, ch));
+
+
+	c3= *add3(&c1,&c2);
+	c4= sub(c1,c2);
+	c5= mul(c1,c2);
+	c6= div(c1,c2);
+	printf("복소수의 덧셈 : ");
+    print_complex(c3);
+	printf("복소수의 뺄셈 : ");
+    print_complex(c4);
+    printf("복소수의 곱셈 : ");
+    print_complex(c5);
+	printf("복소수의 나눗셈 : ");
+    print_complex(c6);
 
 	return 0;
 
+}
+
+Complex add(Complex c1, Complex c2) {
+	Complex result;
+	result.real = c1.real+c2.real;
+	result.imag = c1.imag+c2.imag;
+	return result;
+
+}
+
+Complex add2(Complex *c1, Complex *c2){
+	Complex result;
+	result.real=c1->real + c2->real;
+	result.imag=c1->imag + c2->imag;
+	return result;
+}
+
+Complex *add3(Complex *c1, Complex *c2){
+	static result;
+	result.real=c1->real + c2->real;
+	result.imag=c1->imag + c2->imag;
+	return result;
+}
+
+Complex sub(Complex c1, Complex c2) {
+	Complex result;
+	result.real = c1.real-c2.real;
+	result.imag = c1.imag-c2.imag;
+	return result;
+
+}
+
+Complex mul(Complex c1, Complex c2) {
+	Complex result;
+	result.real = c1.real*c2.real-c1.imag*c2.imag;
+	result.imag = c1.real*c2.imag+c1.imag*c2.real;
+	return result;
+
+}
+
+Complex div(Complex c1, Complex c2){
+	Complex result;
+	result.real = (c1.real*c2.real+c1.imag*c2.imag)/(c2.real*c2.real+c2.imag*c2.imag);
+	result.imag = (-c1.real*c2.imag+c1.imag*c2.real)/(c2.real*c2.real+c2.imag*c2.imag);
+	return result;
+}
+
+Complex get_complex(char *s){
+    Complex result;
+    printf("복소수 입력 (a+bi형태) :");
+	scanf("%lf %lf",&result.real,&result.imag);
+
+    return result;
+}
+
+void print_complex(Complex c1){
+    printf("%f+%fi\n",c1.real,c1.imag);
 }

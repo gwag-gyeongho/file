@@ -1,32 +1,45 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 #include <string.h>
-#define SIZE 10
 
-struct point
+int main(void)
 {
-	int x;
-	int y;
-};
+	char **list;
+	char buffer[BUFSIZ];
+	int len ,NUM,i;
+
+	printf("How many lines? : ");
+	scanf("%d",&NUM);
+	getchar();//입력 버퍼 비우기
+
+	list=(char**) malloc(NUM*sizeof(char*));
+	if( list == NULL ) {
+			printf("malloc() 실패!\n\n");
+			exit(1);
+		}
 
 
-int main(){
-	struct point p1,p2;
-	int xdiff,ydiff;
-	double dist;
+	for (i = 0; i < NUM; i++) {
+		printf("Type a sentence : ");
+		gets(buffer);
+		fgets(buffer,BUFSIZ,stdin);
+		len=strlen(buffer)+1;
 
-	printf("점의 좌표를 입력하세요");
-	scanf("%d %d",&p1.x,&p1.y);
-	printf("점의 좌표를 입력하세요");
-	scanf("%d %d",&p2.x,&p2.y);
+		list[i]=(char*) malloc(len*sizeof(char));
+		if( list[i] == NULL ) {
+			printf("malloc() 실패!\n\n");
+			exit(1);
+		}
+		strcpy(list[i],buffer);
 
-	xdiff=p1.x-p2.x;
-	ydiff=p1.y-p2.y;
-
-	dist = sqrt((double)(xdiff*xdiff+ydiff*ydiff));
-	printf("%f",dist);
-
+	}
+	for(i=1;i<NUM;i++){
+		printf("문자열 %d: %s",i,list[i]);
+	}
+	for(i=0;i<NUM;i++){
+		free(list[i]);
+	}
+	free(list);
 	return 0;
 }
-
