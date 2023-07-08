@@ -45,7 +45,7 @@ int getRandomNumber(int level){//반복할수록 범위가 점점 커지는 난수 생성
 
 void showQuestion(int level, int num1, int num2){//문제를 출력
     printf("\n\n\n#####%d 번째 비밀번호 #####\n", level);
-    printf("\n\t%d x %d ? \n\n",num1,num2);
+    printf("\n      %d x %d ? \n\n",num1,num2);
     printf("################################\n");
     printf("\n비밀번호를 입력하세요(종료 : -1)>>");
 }

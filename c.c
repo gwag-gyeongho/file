@@ -1,25 +1,25 @@
-#define _CRT_SECURE_NO_WARNINGS
-// 비트 필드 구조체
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#define _CRT_SECURE_NO_WARNINGS
 
-struct product { 
-	unsigned style : 3; 
-	unsigned size  : 2; 
-	unsigned color : 1; 
-}; 
-
-int main(void)
-{
-	struct product p1;
-
-	p1.style = 5;
-	p1.size = 3;
-	p1.color = 1;
-
-	printf("style=%d size=%d color=%d\n", p1.style, p1.size, p1.color);
-	printf("sizeof(p1)=%d\n", sizeof(p1));
-	printf("p1=%x\n", p1);
-
-	return 0;
+void pnp (char x, char y, char z, int n){
+    if (n>0){
+        printf("%c%d ",y,n);
+        pnp(y,z,x,n-1);
+        printf("%c%d ",z,n);
+    }
 }
 
+int main(){
+    pnp('A','B','C',3);
+    printf("\n");
+    int i, *pi,a[20],n=20,k;
+    i=123;
+    pi=&i;
+    *pi=314;
+    for(k=0;k<n;k++)
+    a[k]=2*k;
+    printf("i:%d, pi:%d, a[7]:%d, *(a+20):%d",i,pi,a[7],*(a+20));
+    return 0;
+}

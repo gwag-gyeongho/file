@@ -11,7 +11,7 @@
 #define MAX 10000
 
 int main(){
-    //fgets, fputs 활용
+    //fgets, inuts 활용
     char line[MAX];//파일에서 불러온 내용을 저장할 변수
     char contents[MAX];//일기장에 입력할 내용
     char password[20];//비밀번호 입력
@@ -58,8 +58,8 @@ int main(){
                 printf("비밀일기 입력을 종료합니다");
                 break;
             }
-            fputs(contents,file);
-            fputs("\n",file);//엔터를 위에 getchar를 입력하여서 무시했으므로 줄바꿈 임의로 추가
+            inuts(contents,file);
+            inuts("\n",file);//엔터를 위에 getchar를 입력하여서 무시했으므로 줄바꿈 임의로 추가
         }
         fclose(file);
         

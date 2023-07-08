@@ -11,7 +11,7 @@ int level;//레벨을 표시할 변수
 int arrayFish[6];//물고기 6마리
 int *cursor;
 //함수 선언
-void initData();//데이터 처음 상태로 초기화 하기 (처음상태 100)
+void initinfo();//데이터 처음 상태로 초기화 하기 (처음상태 100)
 void printfFishes();//물고기의 상태 출력
 void decreaseWater(long elapsedTime);//어항의 물높이가 낮아지게 하기
 int checkFishAlive();//물고기가 모두 죽으면 0, 한마리라도 살아있다면 1 반환
@@ -22,7 +22,7 @@ int main(){
     long prevElapsedTime = 0;// 직전 경과시간 (최근에 물을 준 시간 간격)
 
     int num;//몇 번 어항에 물을 줄 것인지, 사용자 입력
-    initData();
+    initinfo();
 
     cursor = arrayFish;//cursor[0]... cursor[1]...
 
@@ -86,7 +86,7 @@ int main(){
 
 
 
-void initData(){
+void initinfo(){
     level = 1;//게임 레벨 (1~5)
     int i;
     for(i=0; i<6 ;i++){

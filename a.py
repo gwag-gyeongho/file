@@ -1,12 +1,29 @@
-#1
-multi=6  # 5~9까지
+import sys
+input=sys.stdin.readline
+while True:
+    s=input().rstrip()
+    if s==".":
+        break
+    else:
+        d=[]
+        for i in s:
+            if i=="(":
+                d.append(i)
+            elif i=="[":
+                d.append(i)
+            elif i==")":
+                if len(d)==0:
+                    d.append(i)
+                elif d[-1]=="(" and len(d)!=0:
+                    del d[-1]
+            elif i=="]":
+                if len(d)==0:
+                    d.append(i)
+                elif d[-1]=="["and len(d)!=0:
+                    del d[-1]
 
-for i in range(2,10):#2~9까지의 범위 출력
-    k=i*multi
-    k=list(str(k))
-    k.insert(1,i)
-    for j in range(3):
-        print(k[j],end="")
-    print()
-
+        if len(d)==0:
+            print("yes")
+        else:
+            print("no")
 

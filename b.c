@@ -1,45 +1,16 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-int main(void)
+void hanoi_tower(int n, char from, char tmp, char to)
 {
-	char **list;
-	char buffer[BUFSIZ];
-	int len ,NUM,i;
+   if( n==1 ) 
+        printf("Move disc 1 from %c to %c.\n", from, to); 
+   else {
+        hanoi_tower(n-1, from, to, tmp);
+        printf("Move %d disc(s) from %c to %c.\n", n, from, to);
+        hanoi_tower(n-1, tmp, from, to);
+   }
+}
 
-	printf("How many lines? : ");
-	scanf("%d",&NUM);
-	getchar();//입력 버퍼 비우기
-
-	list=(char**) malloc(NUM*sizeof(char*));
-	if( list == NULL ) {
-			printf("malloc() 실패!\n\n");
-			exit(1);
-		}
-
-
-	for (i = 0; i < NUM; i++) {
-		printf("Type a sentence : ");
-		gets(buffer);
-		fgets(buffer,BUFSIZ,stdin);
-		len=strlen(buffer)+1;
-
-		list[i]=(char*) malloc(len*sizeof(char));
-		if( list[i] == NULL ) {
-			printf("malloc() 실패!\n\n");
-			exit(1);
-		}
-		strcpy(list[i],buffer);
-
-	}
-	for(i=1;i<NUM;i++){
-		printf("문자열 %d: %s",i,list[i]);
-	}
-	for(i=0;i<NUM;i++){
-		free(list[i]);
-	}
-	free(list);
-	return 0;
+int main(){
+    hanoi_tower(3,'a','b','c');
+    return 0;
 }
